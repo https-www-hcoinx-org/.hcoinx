@@ -1,0 +1,2 @@
+# .hcoinx
+fintech
