@@ -15,6 +15,34 @@ permissions:
   pages: write
   id-token: write
 
+# import tkinter as tk
+
+class FloorPlanMonitor:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Floor Plan Monitor")
+
+        # Create and pack labels for each room
+        self.create_room("Exterior", "Solar Panels on the Roof")
+        self.create_room("Living Room", "LED Lighting powered by Cat5", "Smart TV connected via Cat5", "Smart Thermostat controlled by Cat5")
+
+        # Repeat similar structures for other rooms
+
+    def create_room(self, title, *details):
+        room_frame = tk.Frame(self.root, bd=2, relief=tk.GROOVE)
+        room_frame.pack(padx=10, pady=10, fill=tk.X)
+
+        title_label = tk.Label(room_frame, text=title, font=("Arial", 12, "bold"))
+        title_label.pack(anchor=tk.W)
+
+        for detail in details:
+            detail_label = tk.Label(room_frame, text=detail)
+            detail_label.pack(anchor=tk.W, padx=20)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = FloorPlanMonitor(root)
+    root.mainloop()
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
