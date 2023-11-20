@@ -55,7 +55,60 @@ jobs:
     #     credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
     - name: Docker configuration
-      run: |-
+      run: |-import pygame
+from pygame.locals import *
+
+# Initialize Pygame
+pygame.init()
+
+# Define colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+GRAY = (200, 200, 200)
+
+# Set up display
+width, height = 800, 600
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("3D Floor Plan")
+
+clock = pygame.time.Clock()
+
+# Define room dimensions
+room_dimensions = {
+    "Exterior": (200, 200),
+    "Living Room": (300, 200),
+    # Add dimensions for other rooms
+}
+
+# Define room positions
+room_positions = {
+    "Exterior": (100, 100),
+    "Living Room": (400, 100),
+    # Add positions for other rooms
+}
+
+def draw_floor_plan():
+    screen.fill(WHITE)
+
+    # Draw rooms
+    for room, (width, height) in room_dimensions.items():
+        x, y = room_positions[room]
+        pygame.draw.rect(screen, GRAY, (x, y, width, height))
+        pygame.draw.rect(screen, BLACK, (x, y, width, height), 2)
+
+    pygame.display.flip()
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+
+    draw_floor_plan()
+    clock.tick(60)
+
+pygame.quit()
+
         echo ${{steps.auth.outputs.access_token}} | docker login -u oauth2accesstoken --password-stdin https://$GAR_LOCATION-docker.pkg.dev
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
